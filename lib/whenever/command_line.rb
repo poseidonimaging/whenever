@@ -72,9 +72,12 @@ module Whenever
 
       command = ['crontab']
       command << "-u #{@options[:user]}" if @options[:user]
-      command << tmp_cron_file.path
+      command << File.basename(tmp_cron_file.path)
 
       puts "attempting to update from #{tmp_cron_file.path} ..."
+      puts "executing command: #{command.join(" ")}"
+
+      Dir.chdir(Dir.tmpdir)
 
       if system(command.join(' '))
         action = 'written' if @options[:write]
