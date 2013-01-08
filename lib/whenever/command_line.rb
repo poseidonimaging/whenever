@@ -74,6 +74,8 @@ module Whenever
       command << "-u #{@options[:user]}" if @options[:user]
       command << tmp_cron_file.path
 
+      puts "attempting to update from #{tmp_cron_file.path} ..."
+
       if system(command.join(' '))
         action = 'written' if @options[:write]
         action = 'updated' if @options[:update]
